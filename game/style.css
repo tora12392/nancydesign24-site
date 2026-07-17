@@ -23,3 +23,13 @@ header{height:66px;padding:0 3vw;display:flex;align-items:center;justify-content
 @media(max-width:1100px){.game-shell{grid-template-columns:250px minmax(450px,1fr)}.legend{position:static;grid-column:1/-1;grid-template-columns:repeat(6,1fr)}.legend h3,.legend p{grid-column:1/-1}}
 @media(max-width:850px){.intro{grid-template-columns:1fr}.game-shell{grid-template-columns:1fr;padding:22px}.brief-panel,.legend{position:static}.board{width:100%}.legend{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:520px){header{padding:0 16px}.intro{padding:28px 18px}.game-shell{padding:12px}.board{gap:3px;padding:5px}.tile{border-radius:7px;padding:1px}.legend{grid-template-columns:repeat(2,1fr)}.brief-panel h2{font-size:34px}.result{padding:70px 18px}}
+\n\n/* FX V2 — stronger and cache-busted */
+.board-stage.is-ready{animation:readyPulse .65s ease}
+.board-stage.is-ready::after{background:radial-gradient(circle at center,rgba(237,0,122,.28),rgba(237,0,122,0) 68%);animation:stageGlow .65s ease}
+.combo-text{position:absolute;left:50%;top:50%;z-index:8;transform:translate(-50%,-50%) rotate(-4deg);color:var(--mag);background:#fff;border:2px solid var(--mag);padding:12px 18px;font-size:clamp(18px,3vw,40px);line-height:.9;font-weight:900;letter-spacing:-.04em;white-space:nowrap;box-shadow:8px 8px 0 var(--mag);animation:comboPop .9s cubic-bezier(.18,.9,.25,1) forwards}
+.tile.clearing{z-index:2;box-shadow:0 0 0 3px rgba(237,0,122,.18);animation:tileClearStrong .42s cubic-bezier(.15,.85,.25,1) forwards}
+.particle{box-shadow:0 0 18px rgba(237,0,122,.55);animation-duration:.82s}
+.fx-line{box-shadow:0 0 32px rgba(237,0,122,.55);animation-duration:.62s}
+@keyframes tileClearStrong{0%{transform:scale(1);opacity:1;filter:brightness(1)}35%{transform:scale(1.18) rotate(-2deg);opacity:1;filter:brightness(1.3)}100%{transform:scale(.12) rotate(14deg);opacity:0;filter:brightness(1.8)}}
+@keyframes comboPop{0%{opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-9deg)}22%{opacity:1;transform:translate(-50%,-50%) scale(1.15) rotate(3deg)}55%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-4deg)}100%{opacity:0;transform:translate(-50%,-68%) scale(.92) rotate(-2deg)}}
+@keyframes readyPulse{0%{transform:scale(.985)}45%{transform:scale(1.012)}100%{transform:scale(1)}}

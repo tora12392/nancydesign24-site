@@ -38,6 +38,7 @@ function loadLevel(){
   $('#briefTitle').textContent=l.title;
   $('#briefText').textContent=l.text;
   render();
+  setTimeout(()=>pulseStage('is-ready',650),80);
 }
 function render(){
   boardEl.innerHTML='';
@@ -282,9 +283,9 @@ function flash(t){
 function animateMatch(indices,{specialKind,longest,chain},done){
   render();
   clearFx();
-  if(chain>1) pulseStage('is-cascade',360);
-  if(specialKind==='big-idea') pulseStage('is-big-idea',560);
-  else if(specialKind) pulseStage('is-special',340);
+  if(chain>1){ pulseStage('is-cascade',420); showComboText(`COMBO ×${chain}`); }
+  if(specialKind==='big-idea'){ pulseStage('is-big-idea',760); showComboText('BIG IDEA'); }
+  else if(specialKind){ pulseStage('is-special',520); showComboText(specialKind==='moodboard'?'MOODBOARD':'REFERENCE'); }
   if(specialKind==='moodboard' && longest) spawnSweep('row',longest.indices[Math.floor(longest.indices.length/2)]);
   if(specialKind==='reference' && longest) spawnSweep('col',longest.indices[Math.floor(longest.indices.length/2)]);
   indices.forEach((i,n)=>{
@@ -295,17 +296,17 @@ function animateMatch(indices,{specialKind,longest,chain},done){
       spawnParticlesFromElement(el, specialKind==='big-idea'?12:7);
     },n*10);
   });
-  setTimeout(()=>{clearFx(); done();}, 280);
+  setTimeout(done, 430);
 }
 function animateSpecial(kind,specialIndex,clearIndices,done){
   render();
   clearFx();
   const specialEl=boardEl.children[specialIndex];
   if(specialEl) specialEl.classList.add('activating');
-  if(kind==='moodboard') spawnSweep('row',specialIndex);
-  if(kind==='reference') spawnSweep('col',specialIndex);
-  if(kind==='big-idea') pulseStage('is-big-idea',760);
-  if(kind==='ai-assistant') pulseStage('is-ai',520);
+  if(kind==='moodboard'){ spawnSweep('row',specialIndex); showComboText('MOODBOARD'); }
+  if(kind==='reference'){ spawnSweep('col',specialIndex); showComboText('REFERENCE'); }
+  if(kind==='big-idea'){ pulseStage('is-big-idea',900); showComboText('BIG IDEA'); }
+  if(kind==='ai-assistant'){ pulseStage('is-ai',700); showComboText('AI ASSISTANT'); }
   if(kind==='moodboard' || kind==='reference') pulseStage('is-special',420);
   clearIndices.forEach((i,n)=>{
     const el=boardEl.children[i];
@@ -318,7 +319,16 @@ function animateSpecial(kind,specialIndex,clearIndices,done){
       },70);
     },n*8);
   });
-  setTimeout(()=>{clearFx(); done();}, 420);
+  setTimeout(done, 560);
+}
+
+function showComboText(text){
+  if(!fxLayer)return;
+  const label=document.createElement('div');
+  label.className='combo-text';
+  label.textContent=text;
+  fxLayer.appendChild(label);
+  setTimeout(()=>label.remove(),950);
 }
 
 function pulseStage(cls,duration=420){
@@ -327,7 +337,7 @@ function pulseStage(cls,duration=420){
   boardStage.classList.add(cls);
   setTimeout(()=>boardStage.classList.remove(cls),duration);
 }
-function clearFx(){ fxLayer.innerHTML=''; }
+function clearFx(){ if(fxLayer)fxLayer.innerHTML=''; }
 function spawnParticlesFromElement(el,count=8){
   const stageRect=boardStage.getBoundingClientRect();
   const rect=el.getBoundingClientRect();
@@ -369,3 +379,5 @@ function spawnSweep(kind,index){
   fxLayer.appendChild(fx);
   setTimeout(()=>fx.remove(),540);
 }
+
+console.info('[Creative Match] FX v2 loaded');
