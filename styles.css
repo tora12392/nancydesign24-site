@@ -52,3 +52,23 @@
 .creative-match-feature__play b{font-size:24px}
 @media(max-width:1050px){.creative-match-feature__layout{grid-template-columns:1fr;gap:54px}.creative-match-feature__copy{max-width:850px}.creative-match-feature__preview{width:min(840px,100%);margin-left:auto;margin-right:auto}}
 @media(max-width:650px){.creative-match-feature{margin:42px 0 78px;padding:18px 18px 44px}.creative-match-feature__meta{font-size:8px}.creative-match-feature__meta span:last-child{display:none}.creative-match-feature__layout{padding-top:38px;gap:38px}.creative-match-feature h2{font-size:clamp(64px,22vw,110px)}.creative-match-feature__lead{margin-top:32px;font-size:25px}.creative-match-feature__body{font-size:14px}.creative-match-feature__button{margin-top:28px}.creative-match-feature__preview{padding:10px;box-shadow:9px 9px 0 #090909}.creative-match-feature__board{gap:4px;padding:5px}.creative-match-feature__board>span{border-radius:7px}}
+
+/* Project and section arrow-to-object hover system */
+[data-hover-object] .hover-object-slot{position:relative;display:grid;place-items:center;flex:0 0 auto;isolation:isolate}
+[data-hover-object] .hover-object-glyph{display:block;transition:opacity .16s ease,transform .22s ease;will-change:opacity,transform}
+[data-hover-object] .hover-object-image{position:absolute;inset:50% auto auto 50%;width:var(--hover-object-size,76px);height:var(--hover-object-size,76px);object-fit:contain;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(-12deg);transition:opacity .16s ease,transform .28s cubic-bezier(.18,.9,.24,1.28);will-change:opacity,transform;z-index:3}
+[data-hover-object][data-hover-size="large"]{--hover-object-size:clamp(76px,7.4vw,116px)}
+[data-hover-object][data-hover-size="medium"]{--hover-object-size:clamp(58px,5.5vw,86px)}
+[data-hover-object][data-hover-size="small"]{--hover-object-size:58px}
+[data-hover-object]:hover .hover-object-glyph,[data-hover-object]:focus-visible .hover-object-glyph{opacity:0;transform:scale(.35) rotate(10deg)}
+[data-hover-object]:hover .hover-object-image,[data-hover-object]:focus-visible .hover-object-image{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}
+[data-hover-object]:hover .hover-object-image{animation:hoverObjectFloat 1.35s ease-in-out .28s infinite alternate}
+.portfolio-index [data-hover-object] > .hover-object-slot{width:clamp(80px,8vw,126px);height:clamp(80px,8vw,126px);padding-right:0}
+.project-rows [data-hover-object] > .hover-object-slot{width:clamp(60px,6vw,92px);height:clamp(60px,6vw,92px);font-size:30px}
+.creative-match-feature__button > .hover-object-slot{width:74px;height:74px;padding:0}
+.creative-match-feature__play .hover-object-slot{display:inline-grid;width:62px;height:62px}
+.video-poster .video-hover-arrow.hover-object-slot{display:inline-grid;width:52px;height:52px;vertical-align:middle;margin-left:2px}
+.video-poster .video-hover-arrow .hover-object-glyph{font:inherit}
+@keyframes hoverObjectFloat{0%{transform:translate(-50%,-50%) translateY(0) rotate(-2deg) scale(1)}100%{transform:translate(-50%,-50%) translateY(-5px) rotate(3deg) scale(1.03)}}
+@media (hover:none),(pointer:coarse){[data-hover-object] .hover-object-image{display:none!important}[data-hover-object] .hover-object-glyph{opacity:1!important;transform:none!important}}
+@media(max-width:680px){.portfolio-index [data-hover-object] > .hover-object-slot{width:34px;height:34px}.project-rows [data-hover-object] > .hover-object-slot{width:30px;height:30px}.creative-match-feature__button > .hover-object-slot{width:34px;height:34px}.creative-match-feature__play .hover-object-slot{width:28px;height:28px}}
