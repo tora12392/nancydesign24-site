@@ -17,7 +17,7 @@ document.querySelectorAll('[data-hover-object]').forEach(item=>{
   while(slot.firstChild)glyph.appendChild(slot.firstChild);
   const icon=document.createElement('img');
   icon.className='hover-object-image';
-  icon.src=item.dataset.hoverObject;
+  icon.src=item.dataset.hoverObject + '?v=hover-2';
   icon.alt='';
   icon.setAttribute('aria-hidden','true');
   slot.classList.add('hover-object-slot');

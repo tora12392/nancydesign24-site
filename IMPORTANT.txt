@@ -1,0 +1,11 @@
+ВАЖНО: ФАЙЛЫ ИЗ ЭТОГО АРХИВА ДОЛЖНЫ ЛЕЖАТЬ В КОРНЕ РЕПОЗИТОРИЯ.
+
+Правильная структура:
+index.html
+styles.css
+script.js
+assets/cursor-icons/*.png
+
+Не помещайте их внутрь отдельной папки nancydesign24-hover-objects-patch.
+При копировании выберите Replace для index.html/styles.css/script.js и Merge для assets.
+После Push origin обновите сайт Command + Shift + R.
