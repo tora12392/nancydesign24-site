@@ -24,3 +24,31 @@
 #video .video-card h3{font-size:clamp(34px,4.2vw,68px);margin:0 0 24px;line-height:.86}
 #video .video-card .video-role{font-size:14px;line-height:1.55;margin:0;max-width:42ch}
 @media(max-width:850px){#video .video-card,#video .video-card.large{grid-template-columns:1fr}#video .video-card .video-poster{grid-column:1;grid-row:1;min-height:0}#video .video-card-copy{grid-column:1;grid-row:2;border-left:0;border-top:1px solid var(--line)}#video .role-label{margin-bottom:28px;padding-bottom:0}}
+
+
+/* Creative Match teaser */
+.creative-match-feature{position:relative;z-index:2;margin:78px 0 118px;background:#f4f2ed;color:#090909;border-top:1px solid #090909;border-bottom:1px solid #090909;padding:24px max(28px,calc((100vw - var(--max))/2)) 76px;overflow:hidden}
+.creative-match-feature__meta{display:flex;justify-content:space-between;gap:24px;padding-bottom:22px;border-bottom:1px solid #bdbab3;font-size:10px;font-weight:800;letter-spacing:.13em}
+.creative-match-feature__layout{display:grid;grid-template-columns:.83fr 1.17fr;gap:72px;align-items:end;padding-top:54px}
+.creative-match-feature__kicker{margin:0 0 24px;font-size:10px;font-weight:800;letter-spacing:.15em;color:#66635f}
+.creative-match-feature h2{font-size:clamp(76px,10.8vw,178px);line-height:.7;letter-spacing:-.085em;margin:0;font-weight:500}
+.creative-match-feature h2 em{display:inline-block;font-style:normal;color:#ed007a}
+.creative-match-feature__lead{max-width:620px;margin:46px 0 14px;font-size:clamp(24px,2.5vw,42px);line-height:1.02;letter-spacing:-.035em}
+.creative-match-feature__body{max-width:590px;margin:0;color:#4e4b47;font-size:16px;line-height:1.55}
+.creative-match-feature__button{display:flex;justify-content:space-between;align-items:center;width:min(100%,520px);margin-top:42px;padding:22px 0;border-top:1px solid #090909;border-bottom:1px solid #090909;font-size:13px;font-weight:900;letter-spacing:.12em;transition:color .18s,padding .18s}
+.creative-match-feature__button span{font-size:26px}
+.creative-match-feature__button:hover{color:#ed007a;padding-left:12px;padding-right:12px}
+.creative-match-feature__preview{display:block;border:1px solid #aaa7a0;background:#fff;color:#090909;padding:18px;box-shadow:18px 18px 0 #090909;transform:rotate(.35deg);transition:transform .25s,box-shadow .25s}
+.creative-match-feature__preview:hover{transform:rotate(0) translate(-5px,-5px);box-shadow:23px 23px 0 #ed007a}
+.creative-match-feature__preview-label{display:flex;align-items:center;justify-content:center;height:42px;border:1px solid #d5d2cb;margin-bottom:10px;font-size:10px;font-weight:900;letter-spacing:.16em}
+.creative-match-feature__board{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px;background:#f4f2ed;border:1px solid #d5d2cb}
+.creative-match-feature__board>span{display:grid;place-items:center;aspect-ratio:1;background:#fff;border:1px solid #d8d5ce;border-radius:12px;overflow:hidden;transition:transform .18s}
+.creative-match-feature__board>span:nth-child(3n+1){transform:translateY(1px)}
+.creative-match-feature__board>span:hover{transform:translateY(-4px)}
+.creative-match-feature__board img{width:100%;height:100%;object-fit:contain}
+.creative-match-feature__board .active{border:2px solid #ed007a}
+.creative-match-feature__board .locked{background:#efede8}
+.creative-match-feature__play{display:flex;justify-content:space-between;align-items:center;padding-top:16px;font-size:10px;font-weight:900;letter-spacing:.13em}
+.creative-match-feature__play b{font-size:24px}
+@media(max-width:1050px){.creative-match-feature__layout{grid-template-columns:1fr;gap:54px}.creative-match-feature__copy{max-width:850px}.creative-match-feature__preview{width:min(840px,100%);margin-left:auto;margin-right:auto}}
+@media(max-width:650px){.creative-match-feature{margin:42px 0 78px;padding:18px 18px 44px}.creative-match-feature__meta{font-size:8px}.creative-match-feature__meta span:last-child{display:none}.creative-match-feature__layout{padding-top:38px;gap:38px}.creative-match-feature h2{font-size:clamp(64px,22vw,110px)}.creative-match-feature__lead{margin-top:32px;font-size:25px}.creative-match-feature__body{font-size:14px}.creative-match-feature__button{margin-top:28px}.creative-match-feature__preview{padding:10px;box-shadow:9px 9px 0 #090909}.creative-match-feature__board{gap:4px;padding:5px}.creative-match-feature__board>span{border-radius:7px}}
