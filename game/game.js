@@ -6,6 +6,7 @@ const LEVELS=[
 ];
 
 let level=0, board=[], selected=null, moves=0, score=0, collected={};
+let dragState=null, suppressClickUntil=0;
 const $=s=>document.querySelector(s), boardEl=$('#board');
 const tileAsset=(tile,state='normal')=>{
   if(tile.specialKind) return `assets/specials/${tile.specialKind}.png`;
@@ -49,8 +50,14 @@ function render(){
     const state=tile.locked?'locked':selected===i?'active':'normal';
     b.className=`tile${tile.locked?' is-locked':''}${selected===i?' selected':''}${tile.specialKind?' is-special':''}`;
     b.setAttribute('aria-label',tile.specialKind||tile.type);
-    b.innerHTML=`<img src="${tileAsset(tile,state)}" alt="">`;
-    b.onclick=()=>pick(i);
+    b.dataset.index=String(i);
+    b.draggable=false;
+    b.innerHTML=`<img src="${tileAsset(tile,state)}" alt="" draggable="false">`;
+    b.addEventListener('pointerdown',e=>startTileDrag(e,i));
+    b.addEventListener('pointermove',moveTileDrag);
+    b.addEventListener('pointerup',e=>endTileDrag(e,i));
+    b.addEventListener('pointercancel',cancelTileDrag);
+    b.onclick=()=>{if(Date.now()<suppressClickUntil)return;pick(i)};
     boardEl.appendChild(b);
   });
   $('#moves').textContent=moves;
@@ -63,6 +70,60 @@ function renderGoals(){
     `<div class="goal ${(collected[k]||0)>=v?'done':''}"><span>${k.toUpperCase()}</span><b>${Math.min(collected[k]||0,v)} / ${v}</b></div>`
   ).join('');
 }
+
+function startTileDrag(e,i){
+  if(e.button!==undefined && e.button!==0)return;
+  if(board[i].locked){flash('CLIENT REVISION');return}
+  dragState={pointerId:e.pointerId,startIndex:i,startX:e.clientX,startY:e.clientY,moved:false};
+  e.currentTarget.classList.add('drag-source');
+  try{e.currentTarget.setPointerCapture(e.pointerId)}catch(_){/* Safari may skip capture */}
+}
+function moveTileDrag(e){
+  if(!dragState || dragState.pointerId!==e.pointerId)return;
+  const dx=e.clientX-dragState.startX,dy=e.clientY-dragState.startY;
+  if(Math.hypot(dx,dy)>8){
+    dragState.moved=true;
+    e.preventDefault();
+  }
+}
+function indexFromPoint(x,y){
+  const el=document.elementFromPoint(x,y)?.closest?.('.tile');
+  if(!el || !boardEl.contains(el))return null;
+  const n=Number(el.dataset.index);
+  return Number.isInteger(n)?n:null;
+}
+function swipeTarget(start,dx,dy){
+  if(Math.max(Math.abs(dx),Math.abs(dy))<18)return null;
+  const r=Math.floor(start/7),c=start%7;
+  let rr=r,cc=c;
+  if(Math.abs(dx)>=Math.abs(dy))cc+=dx>0?1:-1;
+  else rr+=dy>0?1:-1;
+  if(rr<0||rr>6||cc<0||cc>6)return null;
+  return rr*7+cc;
+}
+function endTileDrag(e,i){
+  if(!dragState || dragState.pointerId!==e.pointerId)return;
+  const state=dragState;
+  dragState=null;
+  e.currentTarget.classList.remove('drag-source');
+  try{e.currentTarget.releasePointerCapture(e.pointerId)}catch(_){/* no-op */}
+  const dx=e.clientX-state.startX,dy=e.clientY-state.startY;
+  let target=indexFromPoint(e.clientX,e.clientY);
+  if(target===null || target===state.startIndex)target=swipeTarget(state.startIndex,dx,dy);
+  if(!state.moved || target===null || target===state.startIndex)return;
+  suppressClickUntil=Date.now()+450;
+  e.preventDefault();
+  if(!adjacent(state.startIndex,target))return;
+  if(board[target].locked){selected=null;flash('CLIENT REVISION');render();return}
+  selected=state.startIndex;
+  pick(target);
+}
+function cancelTileDrag(e){
+  if(!dragState || dragState.pointerId!==e.pointerId)return;
+  dragState=null;
+  e.currentTarget.classList.remove('drag-source');
+}
+
 function adjacent(a,b){
   const ar=Math.floor(a/7),ac=a%7,br=Math.floor(b/7),bc=b%7;
   return Math.abs(ar-br)+Math.abs(ac-bc)===1;
