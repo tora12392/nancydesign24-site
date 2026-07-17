@@ -20,3 +20,5 @@
 /* V11 — student work intro without brief cards */
 .student-work-intro{padding:110px 0 44px}.student-work-intro .story-eyebrow{margin:0 0 34px}.student-work-intro h2{font-size:clamp(58px,9vw,146px);line-height:.78;letter-spacing:-.07em;margin:0 0 42px}.student-work-intro>p:last-child{font-size:20px;line-height:1.6;color:#c9c9c4;max-width:980px;margin:0}
 @media(max-width:580px){.student-work-intro{padding:76px 0 30px}.student-work-intro h2{font-size:17vw}.student-work-intro>p:last-child{font-size:17px}}
+
+.local-case-video{display:block;width:100%;aspect-ratio:16/9;background:#000;border:0;object-fit:contain}
