@@ -1,0 +1,21 @@
+ПОЛНОЕ ВОССТАНОВЛЕНИЕ САЙТА + HOVER-ОБЪЕКТЫ
+
+Этот архив содержит весь сайт целиком: изображения кейсов, постеры видео,
+страницы cases, Creative Match, цветные hover-объекты, CSS и JavaScript.
+
+1. Откройте корень репозитория через GitHub Desktop → Repository → Show in Finder.
+2. Удалите старые папки assets, cases и game из репозитория.
+3. Перенесите ВСЁ содержимое этого архива прямо в корень репозитория.
+4. Для файлов index.html, styles.css, script.js, 404.html выберите Replace.
+5. Сделайте Commit to main и Push origin.
+6. После публикации обновите сайт Command + Shift + R.
+
+Ожидаемая структура:
+index.html
+styles.css
+script.js
+assets/
+cases/
+game/
+CNAME
+.nojekyll
